@@ -2,81 +2,52 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#5b3480">
-    <meta name="description" content="Live LUSU Walking Bus departures">
-    <title>LUSU Walking Bus Departures</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LUSU Walking Bus departures for campus e-screens">
+    <title>Walking Bus departures</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body data-view="today">
-    <main class="board" aria-labelledby="board-title">
-      <header class="board-header">
-        <div class="service-name">
-          <strong>Walking Bus</strong>
+  <body class="screen-page" data-page="screen" data-screen-mode="today">
+    <main class="screen-shell">
+      <header class="screen-header">
+        <div class="screen-title">
+          <img class="walking-bus-logo" src="assets/walking-bus-logo.webp" alt="Catch the Walking Bus">
+          <h1 id="screen-heading">Today’s departures</h1>
+          <p class="date-line" id="screen-date"></p>
         </div>
 
-        <div class="brand-lockup">
-          <img src="lusu-logo.png" alt="Lancaster University Students’ Union">
-        </div>
-
-        <div class="clock-block" aria-label="Current time">
-          <time id="clock" class="clock">--:--</time>
+        <div class="campaign-lockup" aria-label="Bus Boycott Guide, a campaign by your LUSU President Kate Bracewell">
+          <img class="campaign-wordmark" src="assets/bus-boycott-guide.webp" alt="Bus Boycott Guide">
+          <img class="kate-bus" src="assets/kate-bus.webp" alt="Kate Bracewell with a bus">
         </div>
       </header>
 
-      <section class="heading-block">
-        <div class="heading-copy">
-          <p class="eyebrow">Today’s services</p>
-          <h1 id="board-title">Walking Bus departures</h1>
-          <div class="route-summary" aria-label="Walking Bus route stops">
-            <p><strong>Route 1</strong><span>Boot &amp; Shoe → St. Paul's → Bowerham Hotel → Park Hotel → Premier (Dumbarton Rd) → Gregson Centre</span></p>
-            <p><strong>Route 2</strong><span>Boot &amp; Shoe → St. Paul's → SPAR (Greaves Rd) → Infirmary → Market Square</span></p>
-          </div>
-        </div>
-        <p id="date-label" class="date-label">Loading today’s services…</p>
-      </section>
+      <div class="screen-views" aria-live="polite">
+        <section class="screen-view is-active" data-screen-view="today" aria-label="Today’s Walking Bus departures">
+          <div class="today-list" id="today-list"></div>
+        </section>
 
-      <section class="departures-panel" aria-live="polite" aria-busy="true">
-        <div class="column-headings" aria-hidden="true">
-          <span>Departs</span>
-          <span>Route</span>
-          <span>Terminates at</span>
-          <span>Status</span>
-        </div>
+        <section class="screen-view" data-screen-view="week" aria-label="This week’s Walking Bus departures" aria-hidden="true">
+          <div class="week-grid" id="screen-week-grid"></div>
+        </section>
+      </div>
 
-        <div id="departure-list" class="departure-list"></div>
-
-        <div id="message-panel" class="message-panel">
-          <div class="loader" aria-hidden="true"></div>
-          <h2 id="message-title">Loading departures</h2>
-          <p id="message-copy">Checking the live walking bus rota.</p>
-        </div>
-      </section>
-
-      <footer class="board-footer">
-        <p id="updated-label">Waiting for live data</p>
+      <footer class="screen-footer">
+        <div class="page-progress" aria-hidden="true"><span class="is-active"></span><span></span></div>
+        <p id="screen-updated">Loading timetable…</p>
+        <img class="lusu-mark" src="assets/lusu-flag.webp" alt="LUSU">
       </footer>
     </main>
 
-    <template id="departure-template">
-      <article class="departure-row">
-        <div class="departure-time-wrap">
-          <time class="departure-time"></time>
-          <span class="next-label">Next</span>
+    <template id="today-departure-template">
+      <article class="today-departure">
+        <time class="departure-time"></time>
+        <div class="departure-route">
+          <h2 class="route-name"></h2>
+          <p class="route-stops"></p>
         </div>
-        <div class="route-block">
-          <span class="route-number"></span>
-          <span class="route-copy">
-            <strong class="route-name"></strong>
-            <span class="route-via"></span>
-          </span>
-        </div>
-        <div class="destination-block">
-          <span class="destination-label">Terminates at</span>
-          <strong class="destination"></strong>
-        </div>
-        <div class="status-badge"></div>
+        <p class="destination"><span>To</span><strong></strong></p>
       </article>
     </template>
 

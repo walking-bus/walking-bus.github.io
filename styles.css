@@ -1,752 +1,549 @@
-@font-face {
-  font-family: "proxima-nova";
-  src: url("https://use.typekit.net/af/d7ff92/00000000000000007735e609/31/l?subset_id=2&fvd=n4&v=3") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "proxima-nova";
-  src: url("https://use.typekit.net/af/26f7ec/00000000000000007735e605/31/l?subset_id=2&fvd=n5&v=3") format("woff2");
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "proxima-nova";
-  src: url("https://use.typekit.net/af/5be242/00000000000000007735e603/31/l?subset_id=2&fvd=n7&v=3") format("woff2");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
 :root {
-  color-scheme: light;
-  --lusu-purple: #5b3480;
-  --lusu-purple-dark: #43245f;
-  --campaign-indigo: #484d8e;
-  --campaign-blue: #6d92ba;
-  --campaign-cream: #f4f1dd;
-  --lusu-lilac: #6d92ba;
-  --campaign-lilac: #c9b6dc;
-  --campaign-lilac-light: #e7deee;
-  --charcoal: #303464;
-  --muted: #555a82;
+  --campaign-purple: #5b3480;
+  --campaign-indigo: #444d91;
+  --campaign-blue: #6f92bd;
+  --campaign-cream: #f6f5df;
   --white: #ffffff;
-  --line: #d6d2bd;
-  --shadow: 0 14px 36px rgba(34, 31, 77, 0.2);
-  --row-count: 1;
+  --ink: #17213d;
+  --muted: #53617a;
+  --line: #d9deea;
+  --font: "Proxima Nova", "Avenir Next", Avenir, Arial, Helvetica, sans-serif;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
-  width: 100%;
-  min-width: 320px;
-  height: 100%;
-  min-height: 100%;
   margin: 0;
-  overflow: hidden;
-  background: var(--lusu-lilac);
+  min-height: 100%;
 }
 
 body {
-  color: var(--charcoal);
-  font-family: "proxima-nova", "Avenir Next", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
 }
 
-.board {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
-  background: var(--campaign-blue);
-}
-
-.board-header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  min-height: clamp(86px, 12vmin, 150px);
-  padding: clamp(14px, 2vmin, 28px) clamp(24px, 4vw, 76px);
-  background: var(--lusu-purple);
-  color: var(--white);
-}
-
-.service-name {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3em;
-  text-transform: uppercase;
-}
-
-.service-name strong {
-  font-size: clamp(18px, 2.25vmin, 32px);
-  font-weight: 900;
-  letter-spacing: -0.025em;
-}
-
-.brand-lockup {
-  display: grid;
-  place-items: center;
-}
-
-.brand-lockup img {
+img {
   display: block;
-  width: clamp(100px, 13vmin, 178px);
-  height: clamp(58px, 7.5vmin, 104px);
-  object-fit: contain;
+  max-width: 100%;
 }
 
-.clock-block {
-  justify-self: end;
-  text-align: right;
+h1,
+h2,
+p {
+  margin: 0;
 }
-
-.clock {
-  display: block;
-  color: var(--white);
-  font-size: clamp(34px, 5.1vmin, 72px);
-  font-weight: 900;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
-  font-variant-numeric: tabular-nums;
-}
-
-.heading-block {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "copy date";
-  align-items: end;
-  column-gap: clamp(20px, 3vw, 52px);
-  padding: clamp(20px, 2.8vmin, 40px) clamp(24px, 4vw, 76px) clamp(16px, 2.2vmin, 30px);
-  background: var(--campaign-indigo);
-}
-
-.heading-copy { grid-area: copy; }
 
 .eyebrow {
-  margin: 0 0 0.28em;
-  color: var(--campaign-cream);
-  font-size: clamp(15px, 1.35vmin, 20px);
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-size: clamp(0.86rem, 1.15vw, 1.15rem);
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-h1 {
-  margin: 0;
-  color: var(--white);
-  font-family: "proxima-nova", "Avenir Next", "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: clamp(29px, 4.7vmin, 68px);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 0.95;
-  text-transform: uppercase;
-}
+/* E-screen */
 
-.route-summary {
-  display: grid;
-  gap: 0.28em;
-  margin: 0.7em 0 0;
-  color: var(--white);
-  font-size: clamp(14px, 1.15vmin, 17px);
-  font-weight: 500;
-  line-height: 1.25;
-}
-
-.route-summary p {
-  display: grid;
-  grid-template-columns: 4.4em minmax(0, 1fr);
-  gap: 0.65em;
-  margin: 0;
-}
-
-.route-summary strong {
-  color: var(--campaign-lilac);
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.route-summary span { color: var(--white); }
-
-.date-label {
-  grid-area: date;
-  margin: 0;
-  color: var(--white);
-  font-size: clamp(16px, 1.55vmin, 23px);
-  font-weight: 800;
-  text-align: right;
-}
-
-.departures-panel {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  min-height: 0;
-  margin: 0 clamp(24px, 4vw, 76px);
-  width: min(calc(100% - clamp(48px, 8vw, 152px)), 2100px);
-  justify-self: center;
-  border: 1px solid var(--line);
-  border-radius: clamp(16px, 1.7vmin, 26px);
+.screen-page {
+  min-height: 100dvh;
   overflow: hidden;
-  background: var(--white);
-  box-shadow: var(--shadow);
-}
-
-.column-headings,
-.departure-row {
-  display: grid;
-  grid-template-columns: minmax(128px, 0.65fr) minmax(280px, 1.75fr) minmax(220px, 1.15fr) minmax(150px, 0.65fr);
-  align-items: center;
-  gap: clamp(12px, 2vw, 38px);
-}
-
-.column-headings {
-  min-height: clamp(40px, 4.8vmin, 62px);
-  padding: 0 clamp(18px, 2.4vw, 42px);
-  background: var(--lusu-purple);
+  background: var(--campaign-indigo);
   color: var(--white);
-  font-size: clamp(14px, 1.2vmin, 18px);
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
-.column-headings span:last-child { text-align: right; }
-
-.departure-list {
+.screen-shell {
   display: grid;
-  grid-template-rows: repeat(var(--row-count), minmax(0, 1fr));
-  min-height: 0;
-}
-
-.departure-list:empty { display: none; }
-
-.departure-row {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 100dvh;
+  padding: clamp(1.25rem, 2.8vw, 3.25rem) clamp(1.35rem, 3.6vw, 4.5rem) clamp(1rem, 2vw, 2rem);
   position: relative;
-  min-height: 0;
-  padding: clamp(8px, 1vmin, 16px) clamp(18px, 2.4vw, 42px);
-  border-bottom: 1px solid var(--line);
-  background: var(--white);
 }
 
-.departure-row:nth-child(even) { background: #f8f6e8; }
-.departure-row:last-child { border-bottom: 0; }
-
-.departure-row.is-next {
-  background: var(--campaign-cream);
-  box-shadow: inset clamp(6px, 0.55vw, 10px) 0 0 var(--campaign-lilac);
+.screen-shell::before {
+  background: var(--campaign-purple);
+  content: "";
+  height: clamp(0.4rem, 0.75vw, 0.8rem);
+  inset: 0 0 auto;
+  position: absolute;
 }
 
-.departure-time-wrap {
-  display: flex;
+.screen-header {
   align-items: center;
-  gap: 0.7em;
+  display: grid;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 34vw);
+  min-height: clamp(9rem, 20vh, 13.5rem);
+  padding-bottom: clamp(0.55rem, 1.2vh, 1rem);
+  position: relative;
+  z-index: 2;
+}
+
+.walking-bus-logo {
+  height: auto;
+  margin-bottom: 0.45rem;
+  width: clamp(20rem, 34vw, 38rem);
+}
+
+.screen-title .walking-bus-logo {
+  margin-bottom: -0.85rem;
+  margin-top: -0.8rem;
+  transform: translateX(-10.5%);
+}
+
+.screen-title h1 {
+  font-size: clamp(2.5rem, 5.5vw, 6.3rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.date-line {
+  color: var(--campaign-cream);
+  font-size: clamp(1.1rem, 1.8vw, 1.75rem);
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.campaign-lockup {
+  display: grid;
+  justify-self: end;
+  max-width: 28rem;
+  width: min(29vw, 28rem);
+}
+
+.campaign-wordmark {
+  width: 100%;
+}
+
+.kate-bus {
+  justify-self: center;
+  margin-top: clamp(-1.2rem, -1.5vw, -0.5rem);
+  width: 62%;
+}
+
+.screen-views {
+  min-height: 0;
+  position: relative;
+}
+
+.screen-view {
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateY(0.65rem);
+  transition: opacity 500ms ease, transform 500ms ease;
+  visibility: hidden;
+}
+
+.screen-view.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.today-list {
+  align-content: center;
+  display: grid;
+  gap: clamp(0.55rem, 1.25vh, 1rem);
+  height: 100%;
+}
+
+.today-departure {
+  align-items: center;
+  background: var(--white);
+  border-left: clamp(0.4rem, 0.65vw, 0.75rem) solid var(--campaign-cream);
+  color: var(--ink);
+  display: grid;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  grid-template-columns: clamp(10rem, 14vw, 16rem) minmax(0, 3fr) minmax(10rem, 1.25fr);
+  min-height: clamp(4.7rem, 11vh, 8.4rem);
+  padding: clamp(0.8rem, 1.5vh, 1.25rem) clamp(1rem, 2.3vw, 2.7rem);
 }
 
 .departure-time {
-  color: var(--charcoal);
-  font-size: clamp(25px, 3.7vmin, 53px);
-  font-weight: 900;
-  letter-spacing: -0.045em;
-  line-height: 1;
+  color: var(--campaign-indigo);
+  font-size: clamp(2.15rem, 4.2vw, 4.9rem);
   font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1;
 }
 
-.next-label {
-  display: none;
-  border-radius: 999px;
-  padding: 0.38em 0.62em;
-  background: var(--lusu-purple);
-  color: var(--white);
-  font-size: clamp(12px, 1vmin, 15px);
-  font-weight: 900;
+.route-name {
+  font-size: clamp(1.25rem, 2vw, 2.2rem);
+  font-weight: 750;
+  line-height: 1.1;
+}
+
+.route-stops {
+  color: var(--muted);
+  font-size: clamp(0.8rem, 1.15vw, 1.25rem);
+  font-weight: 550;
+  line-height: 1.25;
+  margin-top: 0.35rem;
+}
+
+.destination {
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  padding-left: clamp(1rem, 2vw, 2rem);
+}
+
+.destination span {
+  color: var(--muted);
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.is-next .next-label { display: inline-block; }
-
-.route-block {
-  display: flex;
-  align-items: center;
-  gap: 0.7em;
+.destination strong {
+  font-size: clamp(1.05rem, 1.6vw, 1.7rem);
+  line-height: 1.1;
 }
 
-.route-number {
-  display: inline-grid;
-  place-items: center;
-  min-width: 1.85em;
-  height: 1.85em;
+.screen-footer {
+  align-items: center;
+  display: grid;
+  font-size: clamp(0.78rem, 1vw, 1rem);
+  grid-template-columns: 1fr auto 1fr;
+  min-height: clamp(2.8rem, 6vh, 4.5rem);
+}
+
+.screen-footer > p {
+  color: rgba(255, 255, 255, 0.8);
+  grid-column: 2;
+}
+
+.lusu-mark {
+  grid-column: 3;
+  justify-self: end;
+  max-height: clamp(2.2rem, 4.5vh, 3.6rem);
+  object-fit: contain;
+  width: clamp(4.6rem, 8vw, 8rem);
+}
+
+.page-progress {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.page-progress span {
+  background: rgba(255, 255, 255, 0.35);
   border-radius: 999px;
-  background: var(--lusu-purple);
-  color: var(--white);
-  font-size: clamp(17px, 2.3vmin, 34px);
-  font-weight: 900;
+  height: 0.42rem;
+  transition: width 300ms ease, background 300ms ease;
+  width: 0.42rem;
+}
+
+.page-progress span.is-active {
+  background: var(--campaign-cream);
+  width: 1.7rem;
+}
+
+/* Shared weekly timetable */
+
+.week-grid {
+  display: grid;
+  gap: clamp(0.5rem, 0.85vw, 0.9rem);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: 100%;
+}
+
+.day-column {
+  background: rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-rows: auto repeat(5, minmax(0, 1fr));
+  min-width: 0;
+  overflow: hidden;
+}
+
+.day-heading {
+  align-items: baseline;
+  background: var(--campaign-cream);
+  color: var(--campaign-indigo);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: clamp(0.65rem, 1vw, 1rem);
+}
+
+.day-heading h2 {
+  font-size: clamp(1rem, 1.65vw, 1.8rem);
   line-height: 1;
 }
 
-.route-copy {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.08em;
-  line-height: 1.05;
+.day-heading time {
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.route-name,
-.route-via {
-  color: var(--lusu-purple-dark);
-  font-size: clamp(16px, 1.35vmin, 20px);
-}
-
-.route-name { font-weight: 700; }
-
-.route-via {
-  display: -webkit-box;
+.week-departure {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  min-height: 0;
   overflow: hidden;
+  padding: clamp(0.6rem, 0.85vw, 1rem);
+}
+
+.week-slot-empty {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 0;
+}
+
+.week-departure-line {
+  align-items: baseline;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.week-departure-line time {
+  color: var(--campaign-indigo);
+  font-size: clamp(1.3rem, 2vw, 2.15rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.week-departure-line strong {
+  font-size: clamp(0.7rem, 0.9vw, 1rem);
+  white-space: nowrap;
+}
+
+.week-destination {
+  font-size: clamp(0.75rem, 0.95vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0.25rem;
+}
+
+.week-stops {
   color: var(--muted);
-  font-size: clamp(14px, 1.15vmin, 17px);
-  font-weight: 500;
-  line-height: 1.18;
+  display: -webkit-box;
+  font-size: clamp(0.62rem, 0.72vw, 0.8rem);
+  line-height: 1.25;
+  margin-top: 0.35rem;
+  overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
-.destination-block { min-width: 0; }
-
-.destination-label {
-  display: none;
-  color: var(--muted);
-  font-size: clamp(14px, 0.75em, 16px);
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.destination {
-  display: block;
-  overflow: hidden;
-  color: var(--charcoal);
-  font-size: clamp(18px, 2.55vmin, 37px);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.08;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.status-badge {
-  justify-self: end;
-  border-radius: 999px;
-  padding: 0.66em 1em;
-  background: var(--lusu-purple);
-  color: var(--white);
-  font-size: clamp(16px, 1.35vmin, 20px);
-  font-weight: 900;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.departure-row.is-shortened .status-badge {
-  background: var(--campaign-lilac);
-  color: var(--charcoal);
-}
-
-.message-panel {
-  position: absolute;
-  inset: clamp(40px, 4.8vmin, 62px) 0 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  padding: 8vmin;
-  text-align: center;
-}
-
-.message-panel[hidden] { display: none; }
-
-.message-panel h2 {
-  margin: 0.75em 0 0.25em;
-  color: var(--charcoal);
-  font-size: clamp(28px, 4.4vmin, 64px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-.message-panel p {
-  max-width: 42ch;
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(14px, 1.8vmin, 25px);
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.loader {
-  width: clamp(42px, 5vmin, 72px);
-  aspect-ratio: 1;
-  border: 6px solid var(--campaign-lilac-light);
-  border-top-color: var(--lusu-purple);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
-}
-
-.message-panel.is-empty .loader,
-.message-panel.is-error .loader { display: none; }
-
-.board-footer {
-  display: flex;
+.empty-state {
   align-items: center;
-  justify-content: flex-end;
-  gap: 24px;
-  padding: clamp(10px, 1.4vmin, 20px) clamp(24px, 4vw, 76px);
-  color: var(--white);
-  font-size: clamp(14px, 1.2vmin, 18px);
-  font-weight: 700;
-}
-
-.board-footer p { margin: 0; }
-.board-footer p:first-child { color: var(--white); font-weight: 800; }
-
-body[data-view="week"] .departures-panel {
-  display: block;
-  border: 0;
-  overflow: visible;
-  background: transparent;
-  box-shadow: none;
-}
-
-body[data-view="week"] .column-headings { display: none; }
-
-.departure-list.week-list {
-  height: 100%;
-  grid-template-columns: repeat(5, minmax(210px, 1fr));
-  grid-template-rows: minmax(0, 1fr);
-  gap: clamp(10px, 1.2vw, 22px);
-  overflow-x: auto;
-  padding: clamp(12px, 1.3vmin, 18px) 2px clamp(10px, 1.3vmin, 18px);
-}
-
-.week-day {
+  color: inherit;
   display: flex;
-  min-width: 0;
-  min-height: 0;
-  flex-direction: column;
-  border: 1px solid var(--line);
-  border-radius: clamp(14px, 1.4vmin, 22px);
-  overflow: hidden;
-  background: var(--campaign-cream);
-  box-shadow: 0 9px 26px rgba(83, 50, 112, 0.09);
-}
-
-.week-day.is-today {
-  border: 3px solid var(--campaign-lilac);
-}
-
-.week-day-title {
-  margin: 0;
-  padding: clamp(12px, 1.4vmin, 20px);
-  background: var(--lusu-purple);
-  color: var(--white);
-  font-size: clamp(17px, 1.65vmin, 24px);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
-
-.week-day.is-today .week-day-title { background: var(--lusu-purple-dark); }
-
-.week-day-services {
-  display: flex;
-  min-height: 0;
   flex: 1;
-  flex-direction: column;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+  justify-content: center;
+  line-height: 1.35;
+  min-height: 4rem;
+  padding: 1.25rem;
+  text-align: center;
 }
 
-.week-service {
-  display: grid;
-  flex: 1 1 0;
-  grid-template-columns: 1fr auto;
-  grid-template-areas: "time route" "destination status";
-  align-content: center;
-  gap: 0.3em 0.6em;
+.day-column > .empty-state {
+  grid-row: 2 / -1;
+}
+
+.screen-page .day-column > .empty-state {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.screen-page .week-stops {
+  display: none;
+}
+
+.screen-page[data-screen-mode="week"] .screen-header {
+  min-height: clamp(8rem, 18vh, 11.5rem);
+}
+
+.screen-page[data-screen-mode="week"] .screen-title h1 {
+  font-size: clamp(2.4rem, 4.5vw, 5rem);
+}
+
+.screen-page[data-screen-mode="week"] .week-departure {
+  padding-bottom: clamp(0.4rem, 0.65vw, 0.7rem);
+  padding-top: clamp(0.4rem, 0.65vw, 0.7rem);
+}
+
+/* Website embed */
+
+.embed-page {
+  background: transparent;
+  color: var(--white);
   min-height: 0;
-  padding: clamp(8px, 1vmin, 14px);
-  border-bottom: 1px solid var(--line);
 }
 
-.week-service:last-child { border-bottom: 0; }
-.week-service-time { grid-area: time; font-size: clamp(18px, 1.8vmin, 26px); font-weight: 900; }
-.week-service-route { grid-area: route; color: var(--lusu-purple-dark); font-size: clamp(13px, 1.15vmin, 17px); font-weight: 900; }
-.week-service-destination {
-  grid-area: destination;
-  min-width: 0;
-  overflow: hidden;
-  font-size: clamp(13px, 1.25vmin, 18px);
-  font-weight: 800;
-  line-height: 1.15;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.week-service-status {
-  grid-area: status;
-  align-self: center;
-  justify-self: end;
-  border-radius: 999px;
-  padding: 0.32em 0.55em;
-  background: var(--lusu-purple);
-  color: var(--white);
-  font-size: clamp(12px, 1vmin, 15px);
-  font-weight: 900;
-  white-space: nowrap;
+.embed-shell {
+  min-height: 0;
 }
 
-.week-service.is-shortened .week-service-status { background: var(--campaign-lilac); color: var(--charcoal); }
-.week-empty { margin: auto; padding: 28px 16px; color: var(--muted); font-size: clamp(16px, 1.3vmin, 19px); font-weight: 700; text-align: center; }
-
-body[data-view="week"] .message-panel h2,
-body[data-view="week"] .message-panel p { color: var(--white); }
-
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+.embed-timetable {
+  min-height: 0;
 }
 
-body[data-embed="true"] {
+.embed-page .week-grid {
+  grid-template-rows: auto repeat(5, auto);
   height: auto;
-  overflow: auto;
-  background: var(--campaign-blue);
 }
 
-.embed-board {
-  display: grid;
-  grid-template-rows: auto minmax(320px, auto) auto;
-  gap: clamp(16px, 2.5vw, 30px);
-  min-height: 100dvh;
-  width: min(100%, 1440px);
-  margin: 0 auto;
-  padding: clamp(20px, 4vw, 54px);
-  background: var(--campaign-blue);
+.embed-page .day-column {
+  grid-row: 1 / span 6;
+  grid-template-rows: subgrid;
 }
 
-.embed-header {
-  display: block;
+.embed-page .day-column {
+  background: rgba(68, 77, 145, 0.22);
 }
 
-.embed-header h1 {
-  font-size: clamp(36px, 6vw, 74px);
+.embed-page .week-departure-line time {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
 }
 
-.embed-header .date-label {
-  margin-top: 0.85em;
-  color: var(--white);
-  text-align: left;
+.embed-page .week-destination {
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
 }
 
-.embed-board .departures-panel {
-  width: 100%;
-  margin: 0;
+.embed-page .week-stops {
+  font-size: clamp(0.65rem, 1.05vw, 0.78rem);
 }
 
-.embed-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  color: var(--white);
-  font-size: clamp(16px, 1.5vw, 19px);
-  font-weight: 700;
+.embed-page .day-column > .empty-state {
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.embed-footer p { margin: 0; }
+/* Responsive screens */
 
-body[data-embed="true"][data-view="week"] .departures-panel { min-height: 360px; }
-
-body[data-embed="true"] .departure-list.week-list {
-  height: auto;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-template-rows: auto;
-  overflow: visible;
-}
-
-body[data-embed="true"][data-view="week"] .week-day {
-  min-height: max(180px, calc(58px + var(--service-count, 1) * 68px));
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-@media (orientation: portrait) {
-  .board-header {
-    min-height: clamp(92px, 12vh, 150px);
-    padding-inline: clamp(18px, 4vw, 46px);
-  }
-
-  .service-name strong { font-size: clamp(14px, 2.6vw, 24px); }
-  .brand-lockup img { width: clamp(88px, 17vw, 150px); }
-  .clock { font-size: clamp(31px, 7vw, 62px); }
-  .heading-block {
+@media (orientation: portrait) and (min-width: 700px) {
+  .screen-header {
     grid-template-columns: 1fr;
-    grid-template-areas: "copy" "date";
-    padding: clamp(18px, 2.4vh, 34px) clamp(18px, 4vw, 46px) clamp(12px, 1.6vh, 24px);
+    min-height: 22vh;
   }
 
-  h1 { font-size: clamp(34px, 7.8vw, 72px); }
-
-  .date-label {
-    margin-top: 0.65em;
-    text-align: left;
+  .campaign-lockup {
+    opacity: 0.98;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: min(43vw, 28rem);
   }
 
-  .column-headings { display: none; }
-
-  .departures-panel {
-    grid-template-rows: minmax(0, 1fr);
-    margin-inline: clamp(18px, 4vw, 46px);
-    width: calc(100% - clamp(36px, 8vw, 92px));
-    border: 0;
-    border-radius: 0;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none;
+  .screen-title {
+    padding-top: 2vh;
+    width: 65%;
   }
 
-  .departure-list { gap: clamp(8px, 1vh, 16px); }
-
-  .departure-row,
-  .departure-row:nth-child(even) {
-    grid-template-columns: minmax(90px, 0.78fr) minmax(0, 1.75fr) auto;
-    grid-template-areas: "time destination status" "route destination status";
-    gap: 7px clamp(12px, 2vw, 24px);
-    border: 1px solid var(--line);
-    border-radius: clamp(14px, 2vw, 22px);
-    padding: clamp(11px, 1.4vh, 22px) clamp(14px, 2.8vw, 28px);
-    background: var(--white);
-    box-shadow: 0 7px 20px rgba(83, 50, 112, 0.08);
+  .screen-title h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
   }
 
-  .departure-row.is-next { background: var(--campaign-cream); }
-  .departure-time-wrap { grid-area: time; }
-  .route-block { grid-area: route; }
-  .destination-block { grid-area: destination; align-self: center; }
-  .status-badge { grid-area: status; align-self: center; }
-  .destination-label { display: block; margin-bottom: 0.35em; }
-  .departure-time { font-size: clamp(25px, 5.7vw, 50px); }
-  .destination { font-size: clamp(20px, 4.2vw, 41px); white-space: normal; }
-  .route-number { min-width: 1.55em; height: 1.55em; font-size: clamp(14px, 3vw, 28px); }
-  .route-name { font-size: clamp(15px, 1.8vw, 17px); }
-  .route-via { font-size: clamp(14px, 1.65vw, 16px); }
-  .message-panel { inset: 0; }
-  .board-footer { padding-inline: clamp(18px, 4vw, 46px); }
-
-  .embed-board .departures-panel { width: 100%; margin-inline: 0; }
-
-  .embed-footer {
-    flex-direction: column;
-    gap: 5px;
+  .today-departure {
+    grid-template-columns: minmax(7rem, 0.6fr) minmax(0, 2fr);
   }
 
-  body[data-view="week"] {
-    height: auto;
-    overflow: auto;
+  .destination {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    grid-column: 2;
+    padding: 0.55rem 0 0;
   }
 
-  body[data-view="week"] .board {
-    height: auto;
-    min-height: 100dvh;
-    overflow: visible;
+  .screen-page .week-grid {
+    align-content: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
   }
 
-  body[data-view="week"] .departures-panel { min-height: auto; }
+  .screen-page .week-stops {
+    display: none;
+  }
 
-  .departure-list.week-list {
-    display: grid;
+  .screen-page .day-heading {
+    padding: 0.45rem 0.65rem;
+  }
+
+  .screen-page .week-departure {
+    padding: 0.35rem 0.65rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .embed-shell {
+    min-height: auto;
+  }
+
+  .embed-timetable {
+    min-height: auto;
+  }
+
+  .embed-page .week-grid {
     grid-template-columns: 1fr;
     grid-template-rows: none;
+  }
+
+  .embed-page .day-column {
+    grid-row: auto;
+    grid-template-rows: auto;
     overflow: visible;
   }
 
-  .week-day { min-height: max(180px, calc(58px + var(--service-count, 1) * 68px)); }
+  .embed-page .week-slot-empty {
+    display: none;
+  }
+
+  .embed-page .week-stops {
+    -webkit-line-clamp: unset;
+  }
 }
 
-@media (orientation: portrait) and (min-height: 900px) {
-  body[data-density="dense"] .departure-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(var(--portrait-rows), minmax(0, 1fr));
+@media (max-height: 700px) and (orientation: landscape) {
+  .screen-shell {
+    padding-top: 1.2rem;
   }
 
-  body[data-density="dense"] .departure-row {
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "time status" "route route" "destination destination";
+  .screen-header {
+    min-height: 7.2rem;
   }
 
-  body[data-density="dense"] .status-badge { font-size: clamp(14px, 1.4vw, 17px); }
-}
-
-@media (max-width: 620px) {
-  .service-name { display: none; }
-  .board-header { grid-template-columns: 1fr 1fr; }
-  .brand-lockup { justify-self: start; }
-  .board-footer { align-items: flex-start; flex-direction: column; gap: 3px; }
-  .embed-board { padding: 18px; }
-  .embed-header h1 { font-size: clamp(34px, 11vw, 54px); }
-
-  .departure-row,
-  .departure-row:nth-child(even) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "time status"
-      "route route"
-      "destination destination";
-    gap: 10px 12px;
+  .screen-title h1 {
+    font-size: clamp(2.25rem, 4.8vw, 4.5rem);
   }
 
-  .departure-time-wrap { align-self: center; }
-  .status-badge { font-size: 15px; }
-  .destination-label { margin-top: 0.25em; }
-  .destination { font-size: clamp(22px, 7vw, 34px); }
-  .route-name { font-size: 15px; }
-  .route-via { font-size: 14px; }
-}
-
-@media (max-width: 900px) and (orientation: landscape) {
-  .board-header { min-height: 72px; }
-  .service-name span { display: none; }
-  .brand-lockup img { width: 92px; height: 54px; }
-  .clock { font-size: 34px; }
-  .heading-block { padding-block: 12px; }
-  h1 { font-size: clamp(27px, 4.8vw, 40px); }
-  .column-headings,
-  .departure-row {
-    grid-template-columns: minmax(92px, 0.7fr) minmax(115px, 0.9fr) minmax(170px, 1.6fr) minmax(108px, 0.65fr);
-    gap: 10px;
+  .date-line {
+    margin-top: 0.35rem;
   }
-  .route-copy { font-size: 14px; }
-  .is-next .next-label { display: none; }
-  .ticker span { display: none; }
-  .departure-time { font-size: clamp(25px, 4.4vw, 38px); }
-  .destination { font-size: clamp(19px, 3.2vw, 29px); }
-  .status-badge { padding-inline: 0.7em; }
-  .board-footer { padding-block: 7px; }
+
+  .today-departure {
+    min-height: 4.4rem;
+    padding-bottom: 0.55rem;
+    padding-top: 0.55rem;
+  }
+
+  .route-stops,
+  .week-stops {
+    display: none;
+  }
+
+  .screen-footer {
+    min-height: 2.1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
+  .screen-view,
+  .page-progress span {
+    transition: none;
   }
 }
