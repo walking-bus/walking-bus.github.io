@@ -6,6 +6,10 @@
   const zone = config.ukTimeZone || "Europe/London";
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const cacheKey = "walking-bus-timetable-v2";
+  const routeNames = {
+    "1": "Roses are Red",
+    "2": "Duck’s Waddle"
+  };
   const routes = {
     "1": ["Boot & Shoe", "St. Paul's", "Bowerham Hotel", "Park Hotel", "Premier (Dumbarton Rd)", "Gregson Centre"],
     "2": ["Boot & Shoe", "St. Paul's", "SPAR (Greaves Rd)", "Infirmary", "Market Square"]
@@ -177,6 +181,15 @@
     return raw.match(/\d+/)?.[0] || raw || "–";
   }
 
+  function routeName(row) {
+    return routeNames[routeNumber(row)] || "Walking Bus";
+  }
+
+  function applyRouteStyle(element, row) {
+    const number = routeNumber(row);
+    if (number === "1" || number === "2") element.classList.add(`route-${number}`);
+  }
+
   function normaliseStop(value) {
     return lower(value)
       .replace(/[’']/g, "")
@@ -230,8 +243,13 @@
     const template = document.querySelector("#today-departure-template");
     rows.slice(0, 5).forEach(row => {
       const card = template.content.cloneNode(true);
+      applyRouteStyle(card.querySelector(".today-departure"), row);
       card.querySelector(".departure-time").textContent = normaliseTime(row.Departure ?? row.Departs ?? row.departure ?? row.time);
-      card.querySelector(".route-name").textContent = `Route ${routeNumber(row)}`;
+      const routeHeading = card.querySelector(".route-name");
+      const routeBadge = document.createElement("span");
+      routeBadge.className = "route-roundel";
+      routeBadge.textContent = `Route ${routeNumber(row)} · ${routeName(row)}`;
+      routeHeading.replaceChildren(routeBadge);
       card.querySelector(".route-stops").textContent = stopsFor(row);
       card.querySelector(".destination strong").textContent = destinationFor(row);
       list.append(card);
@@ -262,13 +280,18 @@
         departures.forEach(row => {
           const card = document.createElement("article");
           card.className = "week-departure";
+          applyRouteStyle(card, row);
           const line = document.createElement("div");
           line.className = "week-departure-line";
           const time = document.createElement("time");
           time.textContent = normaliseTime(row.Departure ?? row.Departs ?? row.departure ?? row.time);
+          const routeLabel = document.createElement("span");
+          routeLabel.className = "week-route-label";
           const route = document.createElement("strong");
+          route.className = "route-roundel";
           route.textContent = `Route ${routeNumber(row)}`;
-          line.append(time, route);
+          routeLabel.append(route);
+          line.append(time, routeLabel);
           const destination = document.createElement("p");
           destination.className = "week-destination";
           destination.textContent = `To ${destinationFor(row)}`;

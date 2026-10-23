@@ -7,6 +7,8 @@
   --ink: #17213d;
   --muted: #53617a;
   --line: #d9deea;
+  --route-one: #b42332;
+  --route-two: #17633f;
   --font: "Proxima Nova", "Avenir Next", Avenir, Arial, Helvetica, sans-serif;
 }
 
@@ -107,6 +109,53 @@ p {
   margin-top: 0.75rem;
 }
 
+.route-key {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.35rem, 0.7vw, 0.65rem);
+}
+
+.route-key-item {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  line-height: 1;
+}
+
+.route-key-item strong {
+  background: var(--white);
+  font-size: clamp(0.68rem, 0.85vw, 0.9rem);
+  font-weight: 700;
+  padding: 0.4rem 0.65rem;
+}
+
+.route-roundel {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  display: inline-flex;
+  line-height: 1;
+  padding: 0.22em 0.48em;
+  white-space: nowrap;
+}
+
+.route-1 .route-roundel {
+  color: var(--route-one);
+}
+
+.route-2 .route-roundel {
+  color: var(--route-two);
+}
+
+.screen-route-key {
+  display: none;
+  margin-top: 0.65rem;
+}
+
+.screen-page[data-screen-mode="week"] .screen-route-key {
+  display: flex;
+}
+
 .campaign-lockup {
   display: grid;
   justify-self: end;
@@ -165,6 +214,14 @@ p {
   padding: clamp(0.8rem, 1.5vh, 1.25rem) clamp(1rem, 2.3vw, 2.7rem);
 }
 
+.today-departure.route-1 {
+  border-left-color: var(--route-one);
+}
+
+.today-departure.route-2 {
+  border-left-color: var(--route-two);
+}
+
 .departure-time {
   color: var(--campaign-indigo);
   font-size: clamp(2.15rem, 4.2vw, 4.9rem);
@@ -175,9 +232,26 @@ p {
 }
 
 .route-name {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   font-size: clamp(1.25rem, 2vw, 2.2rem);
   font-weight: 750;
+  gap: clamp(0.45rem, 0.8vw, 0.8rem);
   line-height: 1.1;
+}
+
+.route-name .route-roundel {
+  font-size: clamp(0.82rem, 1.1vw, 1.25rem);
+  letter-spacing: 0;
+}
+
+.route-1 .route-name {
+  color: var(--route-one);
+}
+
+.route-2 .route-name {
+  color: var(--route-two);
 }
 
 .route-stops {
@@ -289,11 +363,20 @@ p {
 
 .week-departure {
   background: var(--white);
+  border-left: 0.28rem solid transparent;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
   min-height: 0;
   overflow: hidden;
   padding: clamp(0.6rem, 0.85vw, 1rem);
+}
+
+.week-departure.route-1 {
+  border-left-color: var(--route-one);
+}
+
+.week-departure.route-2 {
+  border-left-color: var(--route-two);
 }
 
 .week-slot-empty {
@@ -302,7 +385,7 @@ p {
 }
 
 .week-departure-line {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
@@ -316,9 +399,13 @@ p {
   letter-spacing: -0.04em;
 }
 
-.week-departure-line strong {
+.week-route-label {
+  display: flex;
+  min-width: 0;
+}
+
+.week-route-label .route-roundel {
   font-size: clamp(0.7rem, 0.9vw, 1rem);
-  white-space: nowrap;
 }
 
 .week-destination {
@@ -393,6 +480,11 @@ p {
   min-height: 0;
 }
 
+.embed-route-key {
+  justify-content: flex-end;
+  margin-bottom: clamp(0.4rem, 0.8vw, 0.7rem);
+}
+
 .embed-page .week-grid {
   grid-template-rows: auto repeat(5, auto);
   height: auto;
@@ -425,7 +517,7 @@ p {
 
 /* Responsive screens */
 
-@media (orientation: portrait) and (min-width: 700px) {
+@media (orientation: portrait) {
   .screen-header {
     grid-template-columns: 1fr;
     min-height: 22vh;
@@ -475,7 +567,58 @@ p {
   }
 
   .screen-page .week-departure {
-    padding: 0.35rem 0.65rem;
+    padding: clamp(0.22rem, 0.55vh, 0.5rem) clamp(0.4rem, 1.15vw, 0.7rem);
+  }
+
+  .screen-page .week-departure-line {
+    gap: 0.35rem;
+  }
+
+  .screen-page .week-departure-line time {
+    font-size: clamp(0.92rem, 2.65vw, 1.5rem);
+    line-height: 1;
+  }
+
+  .screen-page .week-route-label {
+    align-items: center;
+    flex-direction: row;
+    gap: clamp(0.2rem, 0.6vw, 0.4rem);
+  }
+
+  .screen-page .week-route-label .route-roundel {
+    font-size: clamp(0.48rem, 1.18vw, 0.68rem);
+    padding: 0.16em 0.38em;
+  }
+
+  .screen-page .week-destination {
+    font-size: clamp(0.55rem, 1.42vw, 0.8rem);
+    line-height: 1;
+    margin-top: clamp(0.05rem, 0.2vh, 0.12rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .screen-page[data-screen-mode="week"] .screen-header {
+    min-height: clamp(7.5rem, 16vh, 9.5rem);
+  }
+
+  .screen-page[data-screen-mode="week"] .screen-title h1 {
+    font-size: clamp(2.35rem, 7.2vw, 4.35rem);
+  }
+
+  .screen-page[data-screen-mode="week"] .date-line {
+    font-size: clamp(0.95rem, 2.8vw, 1.4rem);
+    margin-top: 0.45rem;
+  }
+
+  .screen-page .route-key-item {
+    padding: 0;
+  }
+
+  .screen-page .route-key-item strong {
+    font-size: clamp(0.58rem, 1.55vw, 0.78rem);
+    padding: 0.34rem 0.5rem;
   }
 }
 
@@ -505,6 +648,10 @@ p {
 
   .embed-page .week-stops {
     -webkit-line-clamp: unset;
+  }
+
+  .embed-route-key {
+    justify-content: flex-start;
   }
 }
 
