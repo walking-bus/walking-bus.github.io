@@ -50,6 +50,7 @@ p {
 /* E-screen */
 
 .screen-page {
+  min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
   background: var(--campaign-indigo);
@@ -59,6 +60,7 @@ p {
 .screen-shell {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 100vh;
   min-height: 100dvh;
   padding: clamp(1.25rem, 2.8vw, 3.25rem) clamp(1.35rem, 3.6vw, 4.5rem) clamp(1rem, 2vw, 2rem);
   position: relative;
@@ -310,6 +312,10 @@ p {
   gap: 0.55rem;
 }
 
+.screen-page[data-fixed-view] .page-progress {
+  visibility: hidden;
+}
+
 .page-progress span {
   background: rgba(255, 255, 255, 0.35);
   border-radius: 999px;
@@ -517,109 +523,111 @@ p {
 
 /* Responsive screens */
 
-@media (orientation: portrait) {
-  .screen-header {
+.screen-page[data-layout="portrait"] .screen-header {
     grid-template-columns: 1fr;
     min-height: 22vh;
-  }
+}
 
-  .campaign-lockup {
+.screen-page[data-layout="portrait"] .campaign-lockup {
     opacity: 0.98;
     position: absolute;
     right: 0;
     top: 0;
     width: min(43vw, 28rem);
-  }
+}
 
-  .screen-title {
+.screen-page[data-layout="portrait"] .screen-title {
     padding-top: 2vh;
     width: 65%;
-  }
+}
 
-  .screen-title h1 {
+.screen-page[data-layout="portrait"] .screen-title h1 {
     font-size: clamp(3rem, 8vw, 5.5rem);
-  }
+}
 
-  .today-departure {
+.screen-page[data-layout="portrait"] .today-departure {
     grid-template-columns: minmax(7rem, 0.6fr) minmax(0, 2fr);
-  }
+}
 
-  .destination {
+.screen-page[data-layout="portrait"] .route-stops {
+    display: none;
+}
+
+.screen-page[data-layout="portrait"] .destination {
     border-left: 0;
     border-top: 1px solid var(--line);
     grid-column: 2;
     padding: 0.55rem 0 0;
-  }
+}
 
-  .screen-page .week-grid {
+.screen-page[data-layout="portrait"] .week-grid {
     align-content: center;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(3, minmax(0, 1fr));
     overflow: hidden;
-  }
+}
 
-  .screen-page .week-stops {
+.screen-page[data-layout="portrait"] .week-stops {
     display: none;
-  }
+}
 
-  .screen-page .day-heading {
+.screen-page[data-layout="portrait"] .day-heading {
     padding: 0.45rem 0.65rem;
-  }
+}
 
-  .screen-page .week-departure {
+.screen-page[data-layout="portrait"] .week-departure {
     padding: clamp(0.22rem, 0.55vh, 0.5rem) clamp(0.4rem, 1.15vw, 0.7rem);
-  }
+}
 
-  .screen-page .week-departure-line {
+.screen-page[data-layout="portrait"] .week-departure-line {
     gap: 0.35rem;
-  }
+}
 
-  .screen-page .week-departure-line time {
+.screen-page[data-layout="portrait"] .week-departure-line time {
     font-size: clamp(0.92rem, 2.65vw, 1.5rem);
     line-height: 1;
-  }
+}
 
-  .screen-page .week-route-label {
+.screen-page[data-layout="portrait"] .week-route-label {
     align-items: center;
     flex-direction: row;
     gap: clamp(0.2rem, 0.6vw, 0.4rem);
-  }
+}
 
-  .screen-page .week-route-label .route-roundel {
+.screen-page[data-layout="portrait"] .week-route-label .route-roundel {
     font-size: clamp(0.48rem, 1.18vw, 0.68rem);
     padding: 0.16em 0.38em;
-  }
+}
 
-  .screen-page .week-destination {
+.screen-page[data-layout="portrait"] .week-destination {
     font-size: clamp(0.55rem, 1.42vw, 0.8rem);
     line-height: 1;
     margin-top: clamp(0.05rem, 0.2vh, 0.12rem);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
+}
 
-  .screen-page[data-screen-mode="week"] .screen-header {
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-header {
     min-height: clamp(7.5rem, 16vh, 9.5rem);
-  }
+}
 
-  .screen-page[data-screen-mode="week"] .screen-title h1 {
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title h1 {
     font-size: clamp(2.35rem, 7.2vw, 4.35rem);
-  }
+}
 
-  .screen-page[data-screen-mode="week"] .date-line {
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .date-line {
     font-size: clamp(0.95rem, 2.8vw, 1.4rem);
     margin-top: 0.45rem;
-  }
+}
 
-  .screen-page .route-key-item {
+.screen-page[data-layout="portrait"] .route-key-item {
     padding: 0;
-  }
+}
 
-  .screen-page .route-key-item strong {
+.screen-page[data-layout="portrait"] .route-key-item strong {
     font-size: clamp(0.58rem, 1.55vw, 0.78rem);
     padding: 0.34rem 0.5rem;
-  }
 }
 
 @media (max-width: 760px) {

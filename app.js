@@ -19,6 +19,15 @@
   const lower = value => text(value).toLowerCase();
   const upper = value => text(value).toUpperCase();
 
+  function updateDisplayLayout() {
+    if (page !== "screen") return;
+    const requested = new URLSearchParams(window.location.search).get("layout");
+    const forced = requested === "portrait" || requested === "landscape" ? requested : "";
+    const viewportPortrait = window.innerHeight > window.innerWidth;
+    const screenPortrait = window.screen && Number(window.screen.height) > Number(window.screen.width);
+    document.body.dataset.layout = forced || (viewportPortrait || screenPortrait ? "portrait" : "landscape");
+  }
+
   function localDateParts(date = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
       timeZone: zone,
@@ -392,8 +401,8 @@
     const heading = document.querySelector("#screen-heading");
     const date = document.querySelector("#screen-date");
     let active = 0;
-    const switchView = () => {
-      active = (active + 1) % views.length;
+    const showView = (index) => {
+      active = index;
       views.forEach((view, index) => {
         const selected = index === active;
         view.classList.toggle("is-active", selected);
@@ -410,9 +419,26 @@
         month: "long"
       }).format(new Date());
     };
+
+    const requestedView = new URLSearchParams(window.location.search).get("view")?.toLowerCase();
+    const fixedView = requestedView === "week" ? "week" :
+      (requestedView === "day" || requestedView === "today" ? "today" : "");
+
+    if (fixedView) {
+      const fixedIndex = views.findIndex((view) => view.dataset.screenView === fixedView);
+      document.body.dataset.fixedView = fixedView;
+      showView(fixedIndex >= 0 ? fixedIndex : 0);
+      return;
+    }
+
+    delete document.body.dataset.fixedView;
+    const switchView = () => showView((active + 1) % views.length);
     window.setInterval(switchView, Math.max(8, Number(config.screenSwitchSeconds) || 12) * 1000);
   }
 
+  updateDisplayLayout();
+  window.addEventListener("resize", updateDisplayLayout);
+  window.addEventListener("orientationchange", updateDisplayLayout);
   initialiseLabels();
   refresh();
   startScreenRotation();
