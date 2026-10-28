@@ -245,12 +245,15 @@
     const list = document.querySelector("#today-list");
     if (!list) return;
     list.replaceChildren();
+    const departures = rows.slice(0, 5);
+    list.style.setProperty("--departure-count", String(Math.max(1, departures.length)));
+    list.dataset.departureCount = String(departures.length);
     if (!rows.length) {
       list.append(emptyState("No Walking Bus departures are listed for today."));
       return;
     }
     const template = document.querySelector("#today-departure-template");
-    rows.slice(0, 5).forEach(row => {
+    departures.forEach(row => {
       const card = template.content.cloneNode(true);
       applyRouteStyle(card.querySelector(".today-departure"), row);
       card.querySelector(".departure-time").textContent = normaliseTime(row.Departure ?? row.Departs ?? row.departure ?? row.time);

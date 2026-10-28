@@ -523,9 +523,27 @@ p {
 
 /* Responsive screens */
 
+.screen-page[data-layout="portrait"] .screen-shell {
+    padding: 3vh 4vw 2vh;
+}
+
+.screen-page[data-layout="portrait"] .screen-views {
+    min-height: 0;
+}
+
+.screen-page[data-layout="portrait"] .screen-footer {
+    font-size: max(0.9rem, 1.3vw);
+    min-height: 5vh;
+}
+
+.screen-page[data-layout="portrait"] .lusu-mark {
+    max-height: 6vh;
+    width: 9vw;
+}
+
 .screen-page[data-layout="portrait"] .screen-header {
     grid-template-columns: 1fr;
-    min-height: 22vh;
+    min-height: 24vh;
 }
 
 .screen-page[data-layout="portrait"] .campaign-lockup {
@@ -533,20 +551,50 @@ p {
     position: absolute;
     right: 0;
     top: 0;
-    width: min(43vw, 28rem);
+    width: 43vw;
 }
 
 .screen-page[data-layout="portrait"] .screen-title {
-    padding-top: 2vh;
-    width: 65%;
+    padding-top: 2.5vh;
+    width: 72%;
+}
+
+.screen-page[data-layout="portrait"] .screen-title .walking-bus-logo {
+    margin-bottom: -1.25rem;
+    margin-top: -1rem;
+    width: 48vw;
 }
 
 .screen-page[data-layout="portrait"] .screen-title h1 {
-    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-size: max(4.5rem, 10.5vw);
+    line-height: 0.88;
+}
+
+.screen-page[data-layout="portrait"] .date-line {
+    font-size: max(1.55rem, 3.6vw);
+    margin-top: 1rem;
+}
+
+.screen-page[data-layout="portrait"] .today-list {
+    align-content: stretch;
+    gap: 1.15vh;
+    grid-template-rows: repeat(var(--departure-count, 5), minmax(0, 1fr));
 }
 
 .screen-page[data-layout="portrait"] .today-departure {
-    grid-template-columns: minmax(7rem, 0.6fr) minmax(0, 2fr);
+    gap: max(1.25rem, 3vw);
+    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.4fr);
+    min-height: 0;
+    padding: max(1.25rem, 2.2vh) max(1.4rem, 3.2vw);
+}
+
+.screen-page[data-layout="portrait"] .departure-time {
+    font-size: max(4rem, 9vw);
+}
+
+.screen-page[data-layout="portrait"] .route-name .route-roundel {
+    font-size: max(1.25rem, 2.8vw);
+    padding: 0.3em 0.58em;
 }
 
 .screen-page[data-layout="portrait"] .route-stops {
@@ -557,11 +605,46 @@ p {
     border-left: 0;
     border-top: 1px solid var(--line);
     grid-column: 2;
-    padding: 0.55rem 0 0;
+    gap: 0.25rem;
+    padding: max(0.75rem, 1.2vh) 0 0;
+}
+
+.screen-page[data-layout="portrait"] .destination span {
+    font-size: max(1rem, 2.1vw);
+}
+
+.screen-page[data-layout="portrait"] .destination strong {
+    font-size: max(1.75rem, 4vw);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .today-departure {
+    padding-bottom: clamp(0.65rem, 1vh, 1rem);
+    padding-top: clamp(0.65rem, 1vh, 1rem);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .departure-time {
+    font-size: max(3.2rem, 7vw);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .route-name .route-roundel {
+    font-size: max(1rem, 2.2vw);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination {
+    padding-top: clamp(0.4rem, 0.7vh, 0.7rem);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination span {
+    font-size: max(0.82rem, 1.7vw);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination strong {
+    font-size: max(1.35rem, 3.1vw);
 }
 
 .screen-page[data-layout="portrait"] .week-grid {
     align-content: center;
+    gap: 1.15vw;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(3, minmax(0, 1fr));
     overflow: hidden;
@@ -572,53 +655,79 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .day-heading {
-    padding: 0.45rem 0.65rem;
+    padding: max(0.65rem, 1vh) max(0.8rem, 1.8vw);
+}
+
+.screen-page[data-layout="portrait"] .day-heading h2 {
+    font-size: max(1.4rem, 3.2vw);
+}
+
+.screen-page[data-layout="portrait"] .day-heading time {
+    font-size: max(0.9rem, 1.85vw);
 }
 
 .screen-page[data-layout="portrait"] .week-departure {
-    padding: clamp(0.22rem, 0.55vh, 0.5rem) clamp(0.4rem, 1.15vw, 0.7rem);
+    align-items: center;
+    display: flex;
+    gap: max(0.35rem, 0.8vw);
+    padding: max(0.22rem, 0.45vh) max(0.55rem, 1.25vw);
 }
 
 .screen-page[data-layout="portrait"] .week-departure-line {
-    gap: 0.35rem;
+    display: contents;
 }
 
 .screen-page[data-layout="portrait"] .week-departure-line time {
-    font-size: clamp(0.92rem, 2.65vw, 1.5rem);
+    flex: 0 0 auto;
+    font-size: max(1.35rem, 3.45vw);
     line-height: 1;
+    order: 1;
 }
 
 .screen-page[data-layout="portrait"] .week-route-label {
     align-items: center;
+    flex: 0 0 auto;
     flex-direction: row;
-    gap: clamp(0.2rem, 0.6vw, 0.4rem);
+    gap: max(0.2rem, 0.6vw);
+    order: 3;
 }
 
 .screen-page[data-layout="portrait"] .week-route-label .route-roundel {
-    font-size: clamp(0.48rem, 1.18vw, 0.68rem);
-    padding: 0.16em 0.38em;
+    font-size: max(0.65rem, 1.35vw);
+    padding: 0.2em 0.42em;
 }
 
 .screen-page[data-layout="portrait"] .week-destination {
-    font-size: clamp(0.55rem, 1.42vw, 0.8rem);
-    line-height: 1;
-    margin-top: clamp(0.05rem, 0.2vh, 0.12rem);
+    flex: 1 1 auto;
+    font-size: max(0.8rem, 1.7vw);
+    line-height: 1.08;
+    margin-top: 0;
+    min-width: 0;
+    order: 2;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-header {
-    min-height: clamp(7.5rem, 16vh, 9.5rem);
+    min-height: max(8.5rem, 16vh);
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title h1 {
-    font-size: clamp(2.35rem, 7.2vw, 4.35rem);
+    font-size: max(3.4rem, 7.5vw);
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .date-line {
-    font-size: clamp(0.95rem, 2.8vw, 1.4rem);
-    margin-top: 0.45rem;
+    font-size: max(1.2rem, 2.7vw);
+    margin-top: 0.5rem;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title {
+    width: 68%;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .campaign-lockup {
+    width: 34vw;
 }
 
 .screen-page[data-layout="portrait"] .route-key-item {
@@ -626,8 +735,8 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .route-key-item strong {
-    font-size: clamp(0.58rem, 1.55vw, 0.78rem);
-    padding: 0.34rem 0.5rem;
+    font-size: max(0.78rem, 1.65vw);
+    padding: max(0.38rem, 0.55vw) max(0.6rem, 0.85vw);
 }
 
 @media (max-width: 760px) {
