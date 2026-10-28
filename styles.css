@@ -555,7 +555,7 @@ p {
     max-width: none;
     opacity: 0.98;
     position: static;
-    width: 100%;
+    width: 44vmin;
 }
 
 .screen-page[data-layout="portrait"] .screen-title {
@@ -569,18 +569,24 @@ p {
     max-width: none;
     margin-bottom: 0.6vh;
     margin-top: 0;
-    transform: none;
+    transform: translateX(-10.5%);
     width: 45vmin;
 }
 
 .screen-page[data-layout="portrait"] .screen-title h1 {
-    font-size: max(3.8rem, 9vmin);
+    font-size: max(3.8rem, 8.5vmin);
     line-height: 0.88;
 }
 
 .screen-page[data-layout="portrait"] .date-line {
     font-size: max(1.55rem, 3.6vmin);
     margin-top: 1rem;
+    white-space: nowrap;
+    width: calc(100vw - 8vmin);
+}
+
+.screen-page[data-layout="portrait"] .route-roundel {
+    border-width: max(1px, 0.16vmin);
 }
 
 .screen-page[data-layout="portrait"] .today-list {
@@ -767,7 +773,7 @@ p {
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .campaign-lockup {
-    width: 100%;
+    width: 44vmin;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-route-key {
