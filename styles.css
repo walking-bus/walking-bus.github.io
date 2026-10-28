@@ -544,7 +544,7 @@ p {
 .screen-page[data-layout="portrait"] .screen-header {
     align-items: start;
     gap: 2vmin;
-    grid-template-columns: minmax(0, 1fr) minmax(12rem, 40vmin);
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 44vmin);
     min-height: 24vh;
 }
 
@@ -552,6 +552,7 @@ p {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
+    max-width: none;
     opacity: 0.98;
     position: static;
     width: 100%;
@@ -565,13 +566,15 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .screen-title .walking-bus-logo {
-    margin-bottom: -1.25rem;
-    margin-top: -1rem;
-    width: min(100%, 48vmin);
+    max-width: none;
+    margin-bottom: 0.6vh;
+    margin-top: 0;
+    transform: none;
+    width: 45vmin;
 }
 
 .screen-page[data-layout="portrait"] .screen-title h1 {
-    font-size: max(4rem, 9.5vmin);
+    font-size: max(3.8rem, 9vmin);
     line-height: 0.88;
 }
 
@@ -747,6 +750,7 @@ p {
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-header {
     min-height: max(8.5rem, 16vh);
+    padding-bottom: 1.5vh;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title h1 {
@@ -755,7 +759,7 @@ p {
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .date-line {
     font-size: max(1.2rem, 2.7vmin);
-    margin-top: 0.5rem;
+    margin-top: 1vh;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title {
@@ -764,6 +768,12 @@ p {
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .campaign-lockup {
     width: 100%;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-route-key {
+    flex-wrap: nowrap;
+    margin-top: 1vh;
+    width: calc(100vw - 8vmin);
 }
 
 .screen-page[data-layout="portrait"] .route-key-item {
