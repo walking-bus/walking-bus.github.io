@@ -341,7 +341,7 @@ p {
 .day-column {
   background: rgba(255, 255, 255, 0.1);
   display: grid;
-  grid-template-rows: auto repeat(5, minmax(0, 1fr));
+  grid-template-rows: auto repeat(6, minmax(0, 1fr));
   min-width: 0;
   overflow: hidden;
 }
@@ -492,12 +492,12 @@ p {
 }
 
 .embed-page .week-grid {
-  grid-template-rows: auto repeat(5, auto);
+  grid-template-rows: auto repeat(6, auto);
   height: auto;
 }
 
 .embed-page .day-column {
-  grid-row: 1 / span 6;
+  grid-row: 1 / span 7;
   grid-template-rows: subgrid;
 }
 
@@ -524,7 +524,7 @@ p {
 /* Responsive screens */
 
 .screen-page[data-layout="portrait"] .screen-shell {
-    padding: 3vh 4vw 2vh;
+    padding: 3vh 4vmin 2vh;
 }
 
 .screen-page[data-layout="portrait"] .screen-views {
@@ -532,68 +532,102 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .screen-footer {
-    font-size: max(0.9rem, 1.3vw);
+    font-size: max(0.9rem, 1.3vmin);
     min-height: 5vh;
 }
 
 .screen-page[data-layout="portrait"] .lusu-mark {
     max-height: 6vh;
-    width: 9vw;
+    width: 9vmin;
 }
 
 .screen-page[data-layout="portrait"] .screen-header {
-    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 2vmin;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 40vmin);
     min-height: 24vh;
 }
 
 .screen-page[data-layout="portrait"] .campaign-lockup {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
     opacity: 0.98;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 43vw;
+    position: static;
+    width: 100%;
 }
 
 .screen-page[data-layout="portrait"] .screen-title {
+    grid-column: 1;
+    grid-row: 1;
     padding-top: 2.5vh;
-    width: 72%;
+    width: 100%;
 }
 
 .screen-page[data-layout="portrait"] .screen-title .walking-bus-logo {
     margin-bottom: -1.25rem;
     margin-top: -1rem;
-    width: 48vw;
+    width: min(100%, 48vmin);
 }
 
 .screen-page[data-layout="portrait"] .screen-title h1 {
-    font-size: max(4.5rem, 10.5vw);
+    font-size: max(4rem, 9.5vmin);
     line-height: 0.88;
 }
 
 .screen-page[data-layout="portrait"] .date-line {
-    font-size: max(1.55rem, 3.6vw);
+    font-size: max(1.55rem, 3.6vmin);
     margin-top: 1rem;
 }
 
 .screen-page[data-layout="portrait"] .today-list {
-    align-content: stretch;
+    --today-card-height: 15.5vh;
+    align-content: center;
     gap: 1.15vh;
-    grid-template-rows: repeat(var(--departure-count, 5), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--departure-count, 6), minmax(0, var(--today-card-height)));
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="1"], [data-departure-count="2"]) {
+    --today-card-height: 18vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="4"] {
+    --today-card-height: 13.5vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="5"] {
+    --today-card-height: 11.5vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="6"] {
+    --today-card-height: 9.8vh;
 }
 
 .screen-page[data-layout="portrait"] .today-departure {
-    gap: max(1.25rem, 3vw);
-    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.4fr);
+    align-content: center;
+    border-left-width: max(0.45rem, 0.7vmin);
+    column-gap: max(1.25rem, 3vmin);
+    grid-template-areas:
+      "time route"
+      "time destination";
+    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.35fr);
+    grid-template-rows: auto auto;
     min-height: 0;
-    padding: max(1.25rem, 2.2vh) max(1.4rem, 3.2vw);
+    padding: max(1rem, 1.5vh) max(1.4rem, 3.2vmin);
+    row-gap: max(0.5rem, 0.7vh);
 }
 
 .screen-page[data-layout="portrait"] .departure-time {
-    font-size: max(4rem, 9vw);
+    font-size: max(4rem, 7.2vmin);
+    grid-area: time;
+}
+
+.screen-page[data-layout="portrait"] .departure-route {
+    grid-area: route;
 }
 
 .screen-page[data-layout="portrait"] .route-name .route-roundel {
-    font-size: max(1.25rem, 2.8vw);
+    font-size: max(1.25rem, 2vmin);
     padding: 0.3em 0.58em;
 }
 
@@ -604,47 +638,48 @@ p {
 .screen-page[data-layout="portrait"] .destination {
     border-left: 0;
     border-top: 1px solid var(--line);
-    grid-column: 2;
+    grid-area: destination;
     gap: 0.25rem;
-    padding: max(0.75rem, 1.2vh) 0 0;
+    justify-content: center;
+    padding: max(0.45rem, 0.6vh) 0 0;
 }
 
 .screen-page[data-layout="portrait"] .destination span {
-    font-size: max(1rem, 2.1vw);
+    font-size: max(1rem, 1.45vmin);
 }
 
 .screen-page[data-layout="portrait"] .destination strong {
-    font-size: max(1.75rem, 4vw);
+    font-size: max(1.75rem, 2.8vmin);
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .today-departure {
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .today-departure {
     padding-bottom: clamp(0.65rem, 1vh, 1rem);
     padding-top: clamp(0.65rem, 1vh, 1rem);
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .departure-time {
-    font-size: max(3.2rem, 7vw);
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .departure-time {
+    font-size: max(3.2rem, 5.6vmin);
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .route-name .route-roundel {
-    font-size: max(1rem, 2.2vw);
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .route-name .route-roundel {
+    font-size: max(1rem, 1.65vmin);
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination {
-    padding-top: clamp(0.4rem, 0.7vh, 0.7rem);
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination {
+    padding-top: 0;
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination span {
-    font-size: max(0.82rem, 1.7vw);
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination span {
+    font-size: max(0.82rem, 1.2vmin);
 }
 
-.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"]) .destination strong {
-    font-size: max(1.35rem, 3.1vw);
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination strong {
+    font-size: max(1.35rem, 2.3vmin);
 }
 
 .screen-page[data-layout="portrait"] .week-grid {
     align-content: center;
-    gap: 1.15vw;
+    gap: 1.15vmin;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(3, minmax(0, 1fr));
     overflow: hidden;
@@ -655,22 +690,23 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .day-heading {
-    padding: max(0.65rem, 1vh) max(0.8rem, 1.8vw);
+    padding: max(0.65rem, 1vh) max(0.8rem, 1.8vmin);
 }
 
 .screen-page[data-layout="portrait"] .day-heading h2 {
-    font-size: max(1.4rem, 3.2vw);
+    font-size: max(1.4rem, 3.2vmin);
 }
 
 .screen-page[data-layout="portrait"] .day-heading time {
-    font-size: max(0.9rem, 1.85vw);
+    font-size: max(0.9rem, 1.85vmin);
 }
 
 .screen-page[data-layout="portrait"] .week-departure {
     align-items: center;
+    border-left-width: max(0.3rem, 0.45vmin);
     display: flex;
-    gap: max(0.35rem, 0.8vw);
-    padding: max(0.22rem, 0.45vh) max(0.55rem, 1.25vw);
+    gap: max(0.35rem, 0.8vmin);
+    padding: max(0.22rem, 0.45vh) max(0.55rem, 1.25vmin);
 }
 
 .screen-page[data-layout="portrait"] .week-departure-line {
@@ -679,7 +715,7 @@ p {
 
 .screen-page[data-layout="portrait"] .week-departure-line time {
     flex: 0 0 auto;
-    font-size: max(1.35rem, 3.45vw);
+    font-size: max(1.35rem, 3.45vmin);
     line-height: 1;
     order: 1;
 }
@@ -688,18 +724,18 @@ p {
     align-items: center;
     flex: 0 0 auto;
     flex-direction: row;
-    gap: max(0.2rem, 0.6vw);
+    gap: max(0.2rem, 0.6vmin);
     order: 3;
 }
 
 .screen-page[data-layout="portrait"] .week-route-label .route-roundel {
-    font-size: max(0.65rem, 1.35vw);
+    font-size: max(0.65rem, 1.35vmin);
     padding: 0.2em 0.42em;
 }
 
 .screen-page[data-layout="portrait"] .week-destination {
     flex: 1 1 auto;
-    font-size: max(0.8rem, 1.7vw);
+    font-size: max(0.8rem, 1.7vmin);
     line-height: 1.08;
     margin-top: 0;
     min-width: 0;
@@ -714,20 +750,20 @@ p {
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title h1 {
-    font-size: max(3.4rem, 7.5vw);
+    font-size: max(3.4rem, 7.5vmin);
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .date-line {
-    font-size: max(1.2rem, 2.7vw);
+    font-size: max(1.2rem, 2.7vmin);
     margin-top: 0.5rem;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title {
-    width: 68%;
+    width: 100%;
 }
 
 .screen-page[data-layout="portrait"][data-screen-mode="week"] .campaign-lockup {
-    width: 34vw;
+    width: 100%;
 }
 
 .screen-page[data-layout="portrait"] .route-key-item {
@@ -735,8 +771,8 @@ p {
 }
 
 .screen-page[data-layout="portrait"] .route-key-item strong {
-    font-size: max(0.78rem, 1.65vw);
-    padding: max(0.38rem, 0.55vw) max(0.6rem, 0.85vw);
+    font-size: max(0.78rem, 1.65vmin);
+    padding: max(0.38rem, 0.55vmin) max(0.6rem, 0.85vmin);
 }
 
 @media (max-width: 760px) {

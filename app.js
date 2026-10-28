@@ -245,7 +245,7 @@
     const list = document.querySelector("#today-list");
     if (!list) return;
     list.replaceChildren();
-    const departures = rows.slice(0, 5);
+    const departures = rows.slice(0, 6);
     list.style.setProperty("--departure-count", String(Math.max(1, departures.length)));
     list.dataset.departureCount = String(departures.length);
     if (!rows.length) {
@@ -285,7 +285,7 @@
       heading.append(dayName, dayDate);
       column.append(heading);
 
-      const departures = rows.filter(row => dayFor(row) === day).sort((a, b) => sortValue(a) - sortValue(b)).slice(0, 5);
+      const departures = rows.filter(row => dayFor(row) === day).sort((a, b) => sortValue(a) - sortValue(b)).slice(0, 6);
       if (!departures.length) {
         column.append(emptyState("No departures listed"));
       } else {
@@ -313,7 +313,7 @@
           card.append(line, destination, stops);
           column.append(card);
         });
-        for (let index = departures.length; index < 5; index += 1) {
+        for (let index = departures.length; index < 6; index += 1) {
           const spacer = document.createElement("div");
           spacer.className = "week-slot-empty";
           spacer.setAttribute("aria-hidden", "true");

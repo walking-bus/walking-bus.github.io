@@ -1,0 +1,849 @@
+:root {
+  --campaign-purple: #5b3480;
+  --campaign-indigo: #444d91;
+  --campaign-blue: #6f92bd;
+  --campaign-cream: #f6f5df;
+  --white: #ffffff;
+  --ink: #17213d;
+  --muted: #53617a;
+  --line: #d9deea;
+  --route-one: #b42332;
+  --route-two: #17633f;
+  --font: "Proxima Nova", "Avenir Next", Avenir, Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.eyebrow {
+  font-size: clamp(0.86rem, 1.15vw, 1.15rem);
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* E-screen */
+
+.screen-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--campaign-indigo);
+  color: var(--white);
+}
+
+.screen-shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(1.25rem, 2.8vw, 3.25rem) clamp(1.35rem, 3.6vw, 4.5rem) clamp(1rem, 2vw, 2rem);
+  position: relative;
+}
+
+.screen-shell::before {
+  background: var(--campaign-purple);
+  content: "";
+  height: clamp(0.4rem, 0.75vw, 0.8rem);
+  inset: 0 0 auto;
+  position: absolute;
+}
+
+.screen-header {
+  align-items: center;
+  display: grid;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 34vw);
+  min-height: clamp(9rem, 20vh, 13.5rem);
+  padding-bottom: clamp(0.55rem, 1.2vh, 1rem);
+  position: relative;
+  z-index: 2;
+}
+
+.walking-bus-logo {
+  height: auto;
+  margin-bottom: 0.45rem;
+  width: clamp(20rem, 34vw, 38rem);
+}
+
+.screen-title .walking-bus-logo {
+  margin-bottom: -0.85rem;
+  margin-top: -0.8rem;
+  transform: translateX(-10.5%);
+}
+
+.screen-title h1 {
+  font-size: clamp(2.5rem, 5.5vw, 6.3rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.date-line {
+  color: var(--campaign-cream);
+  font-size: clamp(1.1rem, 1.8vw, 1.75rem);
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.route-key {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.35rem, 0.7vw, 0.65rem);
+}
+
+.route-key-item {
+  align-items: center;
+  color: var(--ink);
+  display: inline-flex;
+  line-height: 1;
+}
+
+.route-key-item strong {
+  background: var(--white);
+  font-size: clamp(0.68rem, 0.85vw, 0.9rem);
+  font-weight: 700;
+  padding: 0.4rem 0.65rem;
+}
+
+.route-roundel {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  display: inline-flex;
+  line-height: 1;
+  padding: 0.22em 0.48em;
+  white-space: nowrap;
+}
+
+.route-1 .route-roundel {
+  color: var(--route-one);
+}
+
+.route-2 .route-roundel {
+  color: var(--route-two);
+}
+
+.screen-route-key {
+  display: none;
+  margin-top: 0.65rem;
+}
+
+.screen-page[data-screen-mode="week"] .screen-route-key {
+  display: flex;
+}
+
+.campaign-lockup {
+  display: grid;
+  justify-self: end;
+  max-width: 28rem;
+  width: min(29vw, 28rem);
+}
+
+.campaign-wordmark {
+  width: 100%;
+}
+
+.kate-bus {
+  justify-self: center;
+  margin-top: clamp(-1.2rem, -1.5vw, -0.5rem);
+  width: 62%;
+}
+
+.screen-views {
+  min-height: 0;
+  position: relative;
+}
+
+.screen-view {
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateY(0.65rem);
+  transition: opacity 500ms ease, transform 500ms ease;
+  visibility: hidden;
+}
+
+.screen-view.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.today-list {
+  align-content: center;
+  display: grid;
+  gap: clamp(0.55rem, 1.25vh, 1rem);
+  height: 100%;
+}
+
+.today-departure {
+  align-items: center;
+  background: var(--white);
+  border-left: clamp(0.4rem, 0.65vw, 0.75rem) solid var(--campaign-cream);
+  color: var(--ink);
+  display: grid;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  grid-template-columns: clamp(10rem, 14vw, 16rem) minmax(0, 3fr) minmax(10rem, 1.25fr);
+  min-height: clamp(4.7rem, 11vh, 8.4rem);
+  padding: clamp(0.8rem, 1.5vh, 1.25rem) clamp(1rem, 2.3vw, 2.7rem);
+}
+
+.today-departure.route-1 {
+  border-left-color: var(--route-one);
+}
+
+.today-departure.route-2 {
+  border-left-color: var(--route-two);
+}
+
+.departure-time {
+  color: var(--campaign-indigo);
+  font-size: clamp(2.15rem, 4.2vw, 4.9rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.route-name {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: clamp(1.25rem, 2vw, 2.2rem);
+  font-weight: 750;
+  gap: clamp(0.45rem, 0.8vw, 0.8rem);
+  line-height: 1.1;
+}
+
+.route-name .route-roundel {
+  font-size: clamp(0.82rem, 1.1vw, 1.25rem);
+  letter-spacing: 0;
+}
+
+.route-1 .route-name {
+  color: var(--route-one);
+}
+
+.route-2 .route-name {
+  color: var(--route-two);
+}
+
+.route-stops {
+  color: var(--muted);
+  font-size: clamp(0.8rem, 1.15vw, 1.25rem);
+  font-weight: 550;
+  line-height: 1.25;
+  margin-top: 0.35rem;
+}
+
+.destination {
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  padding-left: clamp(1rem, 2vw, 2rem);
+}
+
+.destination span {
+  color: var(--muted);
+  font-size: clamp(0.75rem, 0.9vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.destination strong {
+  font-size: clamp(1.05rem, 1.6vw, 1.7rem);
+  line-height: 1.1;
+}
+
+.screen-footer {
+  align-items: center;
+  display: grid;
+  font-size: clamp(0.78rem, 1vw, 1rem);
+  grid-template-columns: 1fr auto 1fr;
+  min-height: clamp(2.8rem, 6vh, 4.5rem);
+}
+
+.screen-footer > p {
+  color: rgba(255, 255, 255, 0.8);
+  grid-column: 2;
+}
+
+.lusu-mark {
+  grid-column: 3;
+  justify-self: end;
+  max-height: clamp(2.2rem, 4.5vh, 3.6rem);
+  object-fit: contain;
+  width: clamp(4.6rem, 8vw, 8rem);
+}
+
+.page-progress {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.screen-page[data-fixed-view] .page-progress {
+  visibility: hidden;
+}
+
+.page-progress span {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  height: 0.42rem;
+  transition: width 300ms ease, background 300ms ease;
+  width: 0.42rem;
+}
+
+.page-progress span.is-active {
+  background: var(--campaign-cream);
+  width: 1.7rem;
+}
+
+/* Shared weekly timetable */
+
+.week-grid {
+  display: grid;
+  gap: clamp(0.5rem, 0.85vw, 0.9rem);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: 100%;
+}
+
+.day-column {
+  background: rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-rows: auto repeat(6, minmax(0, 1fr));
+  min-width: 0;
+  overflow: hidden;
+}
+
+.day-heading {
+  align-items: baseline;
+  background: var(--campaign-cream);
+  color: var(--campaign-indigo);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: clamp(0.65rem, 1vw, 1rem);
+}
+
+.day-heading h2 {
+  font-size: clamp(1rem, 1.65vw, 1.8rem);
+  line-height: 1;
+}
+
+.day-heading time {
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.week-departure {
+  background: var(--white);
+  border-left: 0.28rem solid transparent;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(0.6rem, 0.85vw, 1rem);
+}
+
+.week-departure.route-1 {
+  border-left-color: var(--route-one);
+}
+
+.week-departure.route-2 {
+  border-left-color: var(--route-two);
+}
+
+.week-slot-empty {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 0;
+}
+
+.week-departure-line {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.week-departure-line time {
+  color: var(--campaign-indigo);
+  font-size: clamp(1.3rem, 2vw, 2.15rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.week-route-label {
+  display: flex;
+  min-width: 0;
+}
+
+.week-route-label .route-roundel {
+  font-size: clamp(0.7rem, 0.9vw, 1rem);
+}
+
+.week-destination {
+  font-size: clamp(0.75rem, 0.95vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0.25rem;
+}
+
+.week-stops {
+  color: var(--muted);
+  display: -webkit-box;
+  font-size: clamp(0.62rem, 0.72vw, 0.8rem);
+  line-height: 1.25;
+  margin-top: 0.35rem;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.empty-state {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  flex: 1;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+  justify-content: center;
+  line-height: 1.35;
+  min-height: 4rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.day-column > .empty-state {
+  grid-row: 2 / -1;
+}
+
+.screen-page .day-column > .empty-state {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.screen-page .week-stops {
+  display: none;
+}
+
+.screen-page[data-screen-mode="week"] .screen-header {
+  min-height: clamp(8rem, 18vh, 11.5rem);
+}
+
+.screen-page[data-screen-mode="week"] .screen-title h1 {
+  font-size: clamp(2.4rem, 4.5vw, 5rem);
+}
+
+.screen-page[data-screen-mode="week"] .week-departure {
+  padding-bottom: clamp(0.4rem, 0.65vw, 0.7rem);
+  padding-top: clamp(0.4rem, 0.65vw, 0.7rem);
+}
+
+/* Website embed */
+
+.embed-page {
+  background: transparent;
+  color: var(--white);
+  min-height: 0;
+}
+
+.embed-shell {
+  min-height: 0;
+}
+
+.embed-timetable {
+  min-height: 0;
+}
+
+.embed-route-key {
+  justify-content: flex-end;
+  margin-bottom: clamp(0.4rem, 0.8vw, 0.7rem);
+}
+
+.embed-page .week-grid {
+  grid-template-rows: auto repeat(6, auto);
+  height: auto;
+}
+
+.embed-page .day-column {
+  grid-row: 1 / span 7;
+  grid-template-rows: subgrid;
+}
+
+.embed-page .day-column {
+  background: rgba(68, 77, 145, 0.22);
+}
+
+.embed-page .week-departure-line time {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.embed-page .week-destination {
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
+}
+
+.embed-page .week-stops {
+  font-size: clamp(0.65rem, 1.05vw, 0.78rem);
+}
+
+.embed-page .day-column > .empty-state {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Responsive screens */
+
+.screen-page[data-layout="portrait"] .screen-shell {
+    padding: 3vh 4vmin 2vh;
+}
+
+.screen-page[data-layout="portrait"] .screen-views {
+    min-height: 0;
+}
+
+.screen-page[data-layout="portrait"] .screen-footer {
+    font-size: max(0.9rem, 1.3vmin);
+    min-height: 5vh;
+}
+
+.screen-page[data-layout="portrait"] .lusu-mark {
+    max-height: 6vh;
+    width: 9vmin;
+}
+
+.screen-page[data-layout="portrait"] .screen-header {
+    align-items: start;
+    gap: 2vmin;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 40vmin);
+    min-height: 24vh;
+}
+
+.screen-page[data-layout="portrait"] .campaign-lockup {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    opacity: 0.98;
+    position: static;
+    width: 100%;
+}
+
+.screen-page[data-layout="portrait"] .screen-title {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 2.5vh;
+    width: 100%;
+}
+
+.screen-page[data-layout="portrait"] .screen-title .walking-bus-logo {
+    margin-bottom: -1.25rem;
+    margin-top: -1rem;
+    width: min(100%, 48vmin);
+}
+
+.screen-page[data-layout="portrait"] .screen-title h1 {
+    font-size: max(4rem, 9.5vmin);
+    line-height: 0.88;
+}
+
+.screen-page[data-layout="portrait"] .date-line {
+    font-size: max(1.55rem, 3.6vmin);
+    margin-top: 1rem;
+}
+
+.screen-page[data-layout="portrait"] .today-list {
+    --today-card-height: 15.5vh;
+    align-content: center;
+    gap: 1.15vh;
+    grid-template-rows: repeat(var(--departure-count, 6), minmax(0, var(--today-card-height)));
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="1"], [data-departure-count="2"]) {
+    --today-card-height: 18vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="4"] {
+    --today-card-height: 13.5vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="5"] {
+    --today-card-height: 11.5vh;
+}
+
+.screen-page[data-layout="portrait"] .today-list[data-departure-count="6"] {
+    --today-card-height: 9.8vh;
+}
+
+.screen-page[data-layout="portrait"] .today-departure {
+    align-content: center;
+    border-left-width: max(0.45rem, 0.7vmin);
+    column-gap: max(1.25rem, 3vmin);
+    grid-template-areas:
+      "time route"
+      "time destination";
+    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.35fr);
+    grid-template-rows: auto auto;
+    min-height: 0;
+    padding: max(1rem, 1.5vh) max(1.4rem, 3.2vmin);
+    row-gap: max(0.5rem, 0.7vh);
+}
+
+.screen-page[data-layout="portrait"] .departure-time {
+    font-size: max(4rem, 7.2vmin);
+    grid-area: time;
+}
+
+.screen-page[data-layout="portrait"] .departure-route {
+    grid-area: route;
+}
+
+.screen-page[data-layout="portrait"] .route-name .route-roundel {
+    font-size: max(1.25rem, 2vmin);
+    padding: 0.3em 0.58em;
+}
+
+.screen-page[data-layout="portrait"] .route-stops {
+    display: none;
+}
+
+.screen-page[data-layout="portrait"] .destination {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    grid-area: destination;
+    gap: 0.25rem;
+    justify-content: center;
+    padding: max(0.45rem, 0.6vh) 0 0;
+}
+
+.screen-page[data-layout="portrait"] .destination span {
+    font-size: max(1rem, 1.45vmin);
+}
+
+.screen-page[data-layout="portrait"] .destination strong {
+    font-size: max(1.75rem, 2.8vmin);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .today-departure {
+    padding-bottom: clamp(0.65rem, 1vh, 1rem);
+    padding-top: clamp(0.65rem, 1vh, 1rem);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .departure-time {
+    font-size: max(3.2rem, 5.6vmin);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .route-name .route-roundel {
+    font-size: max(1rem, 1.65vmin);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination {
+    padding-top: 0;
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination span {
+    font-size: max(0.82rem, 1.2vmin);
+}
+
+.screen-page[data-layout="portrait"] .today-list:is([data-departure-count="4"], [data-departure-count="5"], [data-departure-count="6"]) .destination strong {
+    font-size: max(1.35rem, 2.3vmin);
+}
+
+.screen-page[data-layout="portrait"] .week-grid {
+    align-content: center;
+    gap: 1.15vmin;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+}
+
+.screen-page[data-layout="portrait"] .week-stops {
+    display: none;
+}
+
+.screen-page[data-layout="portrait"] .day-heading {
+    padding: max(0.65rem, 1vh) max(0.8rem, 1.8vmin);
+}
+
+.screen-page[data-layout="portrait"] .day-heading h2 {
+    font-size: max(1.4rem, 3.2vmin);
+}
+
+.screen-page[data-layout="portrait"] .day-heading time {
+    font-size: max(0.9rem, 1.85vmin);
+}
+
+.screen-page[data-layout="portrait"] .week-departure {
+    align-items: center;
+    border-left-width: max(0.3rem, 0.45vmin);
+    display: flex;
+    gap: max(0.35rem, 0.8vmin);
+    padding: max(0.22rem, 0.45vh) max(0.55rem, 1.25vmin);
+}
+
+.screen-page[data-layout="portrait"] .week-departure-line {
+    display: contents;
+}
+
+.screen-page[data-layout="portrait"] .week-departure-line time {
+    flex: 0 0 auto;
+    font-size: max(1.35rem, 3.45vmin);
+    line-height: 1;
+    order: 1;
+}
+
+.screen-page[data-layout="portrait"] .week-route-label {
+    align-items: center;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: max(0.2rem, 0.6vmin);
+    order: 3;
+}
+
+.screen-page[data-layout="portrait"] .week-route-label .route-roundel {
+    font-size: max(0.65rem, 1.35vmin);
+    padding: 0.2em 0.42em;
+}
+
+.screen-page[data-layout="portrait"] .week-destination {
+    flex: 1 1 auto;
+    font-size: max(0.8rem, 1.7vmin);
+    line-height: 1.08;
+    margin-top: 0;
+    min-width: 0;
+    order: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-header {
+    min-height: max(8.5rem, 16vh);
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title h1 {
+    font-size: max(3.4rem, 7.5vmin);
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .date-line {
+    font-size: max(1.2rem, 2.7vmin);
+    margin-top: 0.5rem;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .screen-title {
+    width: 100%;
+}
+
+.screen-page[data-layout="portrait"][data-screen-mode="week"] .campaign-lockup {
+    width: 100%;
+}
+
+.screen-page[data-layout="portrait"] .route-key-item {
+    padding: 0;
+}
+
+.screen-page[data-layout="portrait"] .route-key-item strong {
+    font-size: max(0.78rem, 1.65vmin);
+    padding: max(0.38rem, 0.55vmin) max(0.6rem, 0.85vmin);
+}
+
+@media (max-width: 760px) {
+  .embed-shell {
+    min-height: auto;
+  }
+
+  .embed-timetable {
+    min-height: auto;
+  }
+
+  .embed-page .week-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .embed-page .day-column {
+    grid-row: auto;
+    grid-template-rows: auto;
+    overflow: visible;
+  }
+
+  .embed-page .week-slot-empty {
+    display: none;
+  }
+
+  .embed-page .week-stops {
+    -webkit-line-clamp: unset;
+  }
+
+  .embed-route-key {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-height: 700px) and (orientation: landscape) {
+  .screen-shell {
+    padding-top: 1.2rem;
+  }
+
+  .screen-header {
+    min-height: 7.2rem;
+  }
+
+  .screen-title h1 {
+    font-size: clamp(2.25rem, 4.8vw, 4.5rem);
+  }
+
+  .date-line {
+    margin-top: 0.35rem;
+  }
+
+  .today-departure {
+    min-height: 4.4rem;
+    padding-bottom: 0.55rem;
+    padding-top: 0.55rem;
+  }
+
+  .route-stops,
+  .week-stops {
+    display: none;
+  }
+
+  .screen-footer {
+    min-height: 2.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-view,
+  .page-progress span {
+    transition: none;
+  }
+}
